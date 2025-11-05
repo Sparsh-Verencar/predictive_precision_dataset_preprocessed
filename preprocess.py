@@ -6,6 +6,8 @@ import pandas as pd
 df = pd.read_csv("supply_chain_resilience_dataset.csv")
 
 # 2) Basic exploration
+df["Disruption_Type"] = df["Disruption_Type"].fillna("None")
+df["Disruption_Severity"] = df["Disruption_Severity"].fillna("None")
 print("Shape (rows, columns):", df.shape)
 print("\nColumns:", df.columns.tolist())
 print("\nData Types:\n", df.dtypes)
@@ -23,6 +25,8 @@ cols_to_drop = [
     "Energy_Consumption_Joules"
 ]
 df.drop(columns=cols_to_drop, inplace=True, errors="ignore")
+
+
 
 # 4) Convert date columns to datetime
 date_cols = ["Order_Date", "Dispatch_Date", "Delivery_Date"]
@@ -42,4 +46,4 @@ print("\nFinal Data Types:\n", df.dtypes)
 print("\nDataFrame preview:\n", df.head())
 print("\nFinal shape:", df.shape)
 
-# df.to_csv("preprocessed_supply_chain_resilience_dataset.csv", index=False)
+df.to_csv("preprocessed_supply_chain_resilience_dataset.csv", index=False)
