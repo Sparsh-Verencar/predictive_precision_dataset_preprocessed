@@ -114,7 +114,8 @@ print(scaled_df.head())
 # ===============================
 # 9) Save processed CSV
 # ===============================
-scaled_df.to_csv("processed_dataset.csv", index=False)
+
+#scaled_df.to_csv("processed_dataset.csv", index=False)
 
 
 # ===============================
@@ -155,6 +156,14 @@ X2_train, X2_test, y_train, y_test = train_test_split(
     X2, y, test_size=0.2, random_state=42
 )
 
+corr = X2.corr(numeric_only=True)
+
+plt.figure(figsize=(10, 6))
+sns.heatmap(corr, annot=True)
+plt.title("Correlation Heatmap")
+plt.tight_layout()
+plt.savefig("X2_correlation_heatmap.png", dpi=300)
+
 modelWithoutDelay = XGBClassifier(
     n_estimators=200,
     learning_rate=0.05,
@@ -189,4 +198,5 @@ with open("xgb_model_without_delay.pkl", "wb") as f:
     pickle.dump(modelWithoutDelay, f)
 
 print("✅ Models saved using pickle!")
+
 
